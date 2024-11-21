@@ -11,8 +11,12 @@ app.use(express.static('dist'))
 app.use(cors({
   //origin: "http://localhost:5173"
   origin:"https://tipescriptpacienteshospital.onrender.com"
-}));
-app.use(express.json());
+})); 
+/* app.use(express.json());
+const cors = require('cors')
+app.use(express.static('dist'))
+app.use(cors()) */
+
 
 const PORT = 3001;
 
