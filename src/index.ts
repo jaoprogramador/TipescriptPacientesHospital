@@ -9,7 +9,8 @@ const app = express();
 app.use(express.static('dist'))
 // Configura CORS para permitir solicitudes desde http://localhost:5173
 app.use(cors({
-  origin: "http://localhost:5173"
+  //origin: "http://localhost:5173"
+  origin:"https://tipescriptpacienteshospital.onrender.com"
 }));
 app.use(express.json());
 
