@@ -1,4 +1,4 @@
-import { BaseEntry } from "./BaseEntry";
+/* import { BaseEntry } from "./BaseEntry";
 interface OccupationalHealthCareEntry extends BaseEntry {
     type: "OccupationalHealthcare";
     employerName: string;
@@ -6,5 +6,5 @@ interface OccupationalHealthCareEntry extends BaseEntry {
       startDate: string;
       endDate: string;
     };
-  }
+  } */
   

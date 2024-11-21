@@ -51,3 +51,10 @@
     | HospitalEntry
     | OccupationalHealthCareEntry;
    */
+    export interface BaseEntry {
+      id: string;
+      description: string;
+      date: string;
+      specialist: string;
+    }
+    
