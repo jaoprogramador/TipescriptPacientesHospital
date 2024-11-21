@@ -7,8 +7,8 @@
     "tsc": "tsc",
     "dev": "nodemon index.ts",
     "lint": "eslint --ext .ts .",
-    "start": "node dist/index.ts",
-    "build": "vite build"
+    "build": "npx vite build",
+    "start": "node dist/index.ts"
   },
   "keywords": [],
   "author": "",
