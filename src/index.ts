@@ -20,7 +20,7 @@ app.use(express.static('dist'))
 app.use(cors()) */
 
 
-const PORT = config.port;
+const PORT = 3001;
 
  app.get('/api/ping', (_req: Request, res: Response) => {
   console.log('someone pinged here');
