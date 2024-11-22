@@ -1,14 +1,8 @@
 
 import express from 'express';
-//import express, { Request, Response } from "express";
 
-//import { Patient ,Entry } from '../models/Patient';
-//import { Patient } from "../types";
-/* import { Entry } from "../types";
-
-import toNewEntry from "../utils/toNewEntry"; */
 import { toNewEntry } from '../utils';
-
+import { v1 as uuid } from 'uuid';
 
 import patientService from "../services/patientService";
 const router = express.Router();
@@ -47,68 +41,34 @@ router.post('/:id/entries', (req, res) => {
   }
 });
 
-
-// Endpoint para agregar una entrada a un paciente
-/* router.post('/:id/entries', async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const { description, date, type, diagnosisCodes, ...rest } = req.body;
-
+// Ruta para agregar un nuevo paciente
+router.post('/', (req, res) => {
   try {
-    // Buscar al paciente
-    const patient = await findPatientById(id);
-    if (!patient) {
-      return res.status(404).json({ error: 'Paciente no encontrado' });
-    }
-
-    // Validar y transformar la entrada
-    const newEntry = toNewEntry({ description, date, type, diagnosisCodes, ...rest });
-
-    // Agregar la nueva entrada al paciente
-    patient.entries.push(newEntry);
-    await patient.save();
-
-    // Responder con la nueva entrada
-    res.status(201).json(newEntry);
-  } catch (error) {
-    console.error(error);
-    res.status(400).json({ error: 'Datos inválidos o problema al agregar la entrada' });
-  }
-}); 
-router.post("/:id/entries", (req: Request, res: Response) => {
-  const { id } = req.params;
-  try {
-    const patient = patientService.getPatientById(id);
-
-    if (!patient) {
-      return res.status(404).json({ error: "Patient not found" });
-    }
-
-    const newEntry = toNewEntry(req.body);
-
-    // Generar un ID único para la nueva entrada
-    const entryWithId: Entry = {
-      ...newEntry,
-      id: Math.random().toString(36).substring(7), // Usa una librería como uuid si es necesario
+    const { name, occupation, ssn, dateOfBirth, gender } = req.body;
+    console.log('name',name)
+    console.log('occupation',occupation)
+    console.log('ssn',ssn)
+    console.log('dateOfBirth',dateOfBirth)
+    console.log('gender',gender)
+    // Crear un nuevo paciente
+    const newPatient = {
+      id: uuid(),  // Genera un ID único para el paciente
+      name,
+      occupation,
+      ssn,
+      dateOfBirth,
+      gender,
+      entries: []  // Inicializamos con un array vacío de entradas
     };
 
-    patient.entries.push(entryWithId);
+    // Agregar el nuevo paciente a la "base de datos" (en memoria o base de datos real)
+    const addedPatient = patientService.addPatient(newPatient);
 
-    return res.status(201).json(entryWithId);
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error("Error adding entry:", error.message);
-      return res.status(400).json({ error: error.message });
-    }
-    return res.status(400).json({ error: "An unknown error occurred" });
+    // Responder con el paciente recién creado
+    res.status(201).json(addedPatient);
+  } catch (error) {
+    console.log('PatienceService ERROR',error);
+    res.status(500).json({ message: 'Error al agregar el paciente', error });
   }
-});*/
-
-
-
-
-// Middleware para encontrar al paciente por ID
-/* const findPatientById = async (id: string): Promise<Patient | null> => {
-  const patient = await Patient.findById(id);
-  return patient;
-}; */
+});
 export default router;
